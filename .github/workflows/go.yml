@@ -18,7 +18,7 @@ jobs:
         goos: [windows, darwin, linux]  
         goarch: [amd64, arm64]     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -43,7 +43,7 @@ jobs:
 #      run: go test -v ./...
 
     - name: Upload artifacts  
-      uses: actions/upload-artifact@v2  
+      uses: actions/upload-artifact@v4  
       with:  
         name: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom
         path: output/  
