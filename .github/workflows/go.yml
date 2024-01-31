@@ -34,9 +34,10 @@ jobs:
         GOOS: ${{ matrix.goos }}  
         GOARCH: ${{ matrix.goarch }}  
       run: |
+        if [ $GOOS = "windows" ]; then export BINARY_SUFFIX="$BINARY_SUFFIX.exe"; fi
         go build -v ./...
-        mv verandom.exe "${{ matrix.goos }}_${{ matrix.goarch }}_verandom.exe" || true
-        mv verandom "${{ matrix.goos }}_${{ matrix.goarch }}_verandom" || true
+        mkdir output/ || true
+        mv verandom$BINARY_SUFFIX output/"${{ matrix.goos }}_${{ matrix.goarch }}_verandom$BINARY_SUFFIX"
 
 #    - name: Test
 #      run: go test -v ./...
@@ -44,5 +45,5 @@ jobs:
     - name: Upload artifacts  
       uses: actions/upload-artifact@v2  
       with:  
-        name: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom*  
-        path: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom*  
+        name: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom
+        path: output/  
