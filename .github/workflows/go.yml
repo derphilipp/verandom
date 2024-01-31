@@ -40,3 +40,9 @@ jobs:
 
 #    - name: Test
 #      run: go test -v ./...
+
+    - name: Upload artifacts  
+      uses: actions/upload-artifact@v2  
+      with:  
+        name: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom*  
+        path: ${{ matrix.goos }}_${{ matrix.goarch }}_verandom*  
